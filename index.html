@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <section class="app">
+      <h1>Finance Tracker</h1>
+
+      <!-- Form -->
+      <div class="form">
+        <input type="text" class="input_name" placeholder="Tên giao dịch" />
+        <input type="number" class="input_money" placeholder="Số tiền" />
+
+        <select class="input_type">
+          <option value="income">Thu nhập</option>
+          <option value="expense">Chi phí</option>
+        </select>
+
+        <div class="btn_input">
+          <button class="input_add">Add</button>
+          <button type="button" class="input_clear">Clear All</button>
+        </div>
+      </div>
+
+      <!-- Tổng -->
+      <div class="total">
+        <div>Tổng tiền: <span id="balance">0</span></div>
+        <div>Tổng thu: <span id="income">0</span></div>
+        <div>Tổng chi: <span id="expense">0</span></div>
+      </div>
+
+      <!-- List -->
+      <ul class="list" id="list"></ul>
+    </section>
+
+    <!-- js -->
+    <script src="./main.js"></script>
+  </body>
+</html>

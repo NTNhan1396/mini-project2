@@ -1,0 +1,152 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto Mono", monospace;
+}
+:root {
+  --primary-color: dodgerblue;
+  --secondary-color: darkOrange;
+  --white: white;
+  --black: black;
+  --text-color: #2d3748;
+}
+
+body {
+  background: linear-gradient(135deg, #434f6d, #1e293b);
+
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* form ---------------------------------------------------*/
+.app {
+  width: 100%;
+  max-width: 400px;
+  background-color: var(--white);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.app h1 {
+  color: var(--primary-color);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: var(--white);
+  border-radius: 10px;
+  padding: 25px;
+}
+
+.form input {
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  transition: 0.2s;
+}
+
+.form input,
+.input_type {
+  width: 100%;
+  margin: 8px 0;
+}
+
+.form input:focus {
+  outline: none;
+  border: 1px solid dodgerblue;
+}
+
+.input_type {
+  padding: 10px 15px;
+  border-radius: 5px;
+}
+
+/* btn */
+
+.btn_input {
+  width: 100%;
+}
+
+.input_add,
+.input_clear {
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100px;
+  background-color: var(--secondary-color);
+  border: none;
+  transition: 0.2s;
+  width: 100%;
+  margin: 8px 0;
+}
+
+.input_add:hover,
+.input_clear:hover {
+  opacity: 0.9;
+}
+
+.input_add:active,
+.input_clear:active {
+  transform: scale(0.95);
+}
+
+.input_add:disabled {
+  background-color: #ccc;
+  transform: scale(1);
+  opacity: 1;
+  cursor: not-allowed;
+}
+
+.total {
+  border: 1px solid #eee;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 15px;
+  font-weight: 600;
+}
+
+/* list ------ */
+.list {
+  list-style: none;
+  margin-top: 15px;
+}
+
+.item {
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  background: #f8fafc;
+}
+
+.item.income {
+  border-left: 5px solid #22c55e;
+}
+
+.item.expense {
+  border-left: 5px solid #ef4444;
+}
+
+.item_delete {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.item_delete:hover {
+  transform: scale(1.2);
+}
