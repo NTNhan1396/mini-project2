@@ -1,8 +1,8 @@
 let array = [];
 
+// ===== DOM =====
 let name = document.querySelector(".input_name");
 let number = document.querySelector(".input_money");
-
 let list = document.getElementById("list");
 
 let btn_add = document.querySelector(".input_add");
@@ -14,10 +14,12 @@ let balance = document.getElementById("balance");
 let income = document.getElementById("income");
 let expense = document.getElementById("expense");
 
+let filter = document.querySelector(".filter_select");
 let btn_clearAll = document.querySelector(".input_clear");
+
+// ===== EVENT =====
 btn_add.addEventListener("click", () => {
   appendList();
-
   name.focus();
   type.value = "income";
 });
@@ -36,6 +38,25 @@ number.addEventListener("keydown", (e) => {
   }
 });
 
+type.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    appendList();
+    name.focus();
+    type.value = "income";
+  }
+});
+
+filter.addEventListener("change", () => {
+  filter.className = "filter_select " + filter.value;
+  render();
+});
+
+btn_clearAll.addEventListener("click", () => {
+  array = [];
+  render();
+});
+
+// ===== VALIDATION =====
 function checkInput() {
   if (name.value === "" || number.value === "") {
     btn_add.disabled = true;
@@ -47,16 +68,7 @@ function checkInput() {
 name.addEventListener("input", checkInput);
 number.addEventListener("input", checkInput);
 
-type.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    appendList();
-
-    name.focus();
-    type.value = "income";
-  }
-});
-
-//add task--------------------------------------------
+// ===== ADD =====
 function appendList() {
   if (name.value === "" || number.value === "") {
     alert("Bạn chưa nhập gì!");
@@ -89,26 +101,39 @@ function appendList() {
 
   render();
 
-  //reset
+  // reset
   name.value = "";
   number.value = "";
   btn_add.disabled = true;
 }
 
+// ===== RENDER =====
 function render() {
   if (array.length === 0) {
-    list.innerHTML = "<p>Chưa có giao dịch</p>";
+    list.innerHTML = "<li>Chưa có giao dịch</li>";
     balance.textContent = "0 VND";
     income.textContent = "0 VND";
     expense.textContent = "0 VND";
     return;
   }
+
+  renderList();
+  renderSummary();
+}
+
+// ===== RENDER LIST =====
+function renderList() {
   list.innerHTML = "";
 
-  for (let item of array) {
+  let filteredArray = array;
+
+  if (filter.value !== "all") {
+    filteredArray = array.filter((item) => item.type === filter.value);
+  }
+
+  for (let item of filteredArray) {
     let li = document.createElement("li");
-    li.classList.add("item");
-    li.classList.add(item.type);
+    li.classList.add("item", item.type);
 
     let div = document.createElement("div");
     div.classList.add("item_info");
@@ -121,31 +146,36 @@ function render() {
     p_amount.classList.add("item_amount");
     p_amount.textContent = "Số tiền: " + item.amount.toLocaleString() + " VND";
 
-    let btn_remove = document.createElement("button");
-    btn_remove.classList.add("item_delete");
-    btn_remove.textContent = "❌";
-
     let dateNow = document.createElement("p");
     dateNow.classList.add("item_time");
     dateNow.textContent = "Thời gian: " + item.date;
 
-    div.append(p_name, p_amount, dateNow);
-    li.append(div, btn_remove);
-    list.append(li);
+    let btn_remove = document.createElement("button");
+    btn_remove.classList.add("item_delete");
+    btn_remove.textContent = "❌";
 
     btn_remove.addEventListener("click", () => {
       array = array.filter((t) => t.id !== item.id);
       render();
     });
-  }
 
+    div.append(p_name, p_amount, dateNow);
+    li.append(div, btn_remove);
+    list.append(li);
+  }
+}
+
+// ===== SUMMARY =====
+function renderSummary() {
   let incomeTotal = 0;
   let expenseTotal = 0;
 
-  if (item.type === "income") {
-    incomeTotal += item.amount;
-  } else if (item.type === "expense") {
-    expenseTotal += item.amount;
+  for (let arr of array) {
+    if (arr.type === "income") {
+      incomeTotal += arr.amount;
+    } else if (arr.type === "expense") {
+      expenseTotal += arr.amount;
+    }
   }
 
   let total = incomeTotal - expenseTotal;
@@ -154,8 +184,3 @@ function render() {
   income.textContent = incomeTotal.toLocaleString() + " VND";
   expense.textContent = expenseTotal.toLocaleString() + " VND";
 }
-
-btn_clearAll.addEventListener("click", () => {
-  array = [];
-  render();
-});

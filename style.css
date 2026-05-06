@@ -150,3 +150,32 @@ body {
 .item_delete:hover {
   transform: scale(1.2);
 }
+
+/* btn filter -------------------------- */
+.filter_box {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.filter_select {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.filter_select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+/* highlight trạng thái */
+.filter_select.income {
+  border-color: #22c55e;
+}
+
+.filter_select.expense {
+  border-color: #ef4444;
+}
